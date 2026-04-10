@@ -1,4 +1,4 @@
-# URL Shortener Service
+# URL Shortener
 
 A lightweight, high-performance URL shortening service built with Flask. This application provides a clean RESTful API alongside a minimal web interface, enabling users to create, manage, and analyze short links with persistent storage via SQLite.
 
