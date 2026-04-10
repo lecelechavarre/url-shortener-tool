@@ -41,7 +41,7 @@ flask-url-shortener/
 
 ---
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### 1. Clone & Environment Setup
 ```bash
@@ -68,11 +68,10 @@ python app.py
 The service will be available at http://localhost:5000.
 ```
 ## API Reference
-```
 Base URL
 http://localhost:5000
 
-Endpoints
+## Endpoints
 Method	Endpoint	Description	Success Response
 POST	/shorten	Create a new short URL	201 Created
 GET	/<short_code>	Redirect to original URL (increments count)	302 Found
@@ -82,19 +81,21 @@ PUT	/shorten/<short_code>	Update the destination of an existing link	200 OK
 DELETE	/shorten/<short_code>	Permanently delete a short URL	204 No Content
 GET	/all-urls	List all stored URL mappings (admin only)	200 OK
 
-Example Request: Create Short URL
+## Example Request: Create Short URL
 bash
 curl -X POST http://localhost:5000/shorten \
   -H "Content-Type: application/json" \
   -d '{"url": "https://www.example.com/very/long/path"}'
-Example Response
+  
+## Example Response
 json
 {
   "short_code": "xYz123",
   "short_url": "http://localhost:5000/xYz123",
   "original_url": "https://www.example.com/very/long/path"
 }
-🗄️ Data Schema
+
+## Data Schema
 Column	Type	Constraints	Description
 id	INTEGER	PRIMARY KEY, AUTOINCREMENT	Internal record ID
 original_url	VARCHAR(2048)	NOT NULL	The full destination URL
@@ -102,7 +103,8 @@ short_code	VARCHAR(10)	UNIQUE, NOT NULL	Generated alphanumeric identifier
 created_at	DATETIME	DEFAULT CURRENT_TIMESTAMP	Timestamp of creation
 updated_at	DATETIME	DEFAULT CURRENT_TIMESTAMP	Timestamp of last modification
 access_count	INTEGER	DEFAULT 0	Number of redirects tracked
-🛡️ Error Handling
+
+## Error Handling
 The API returns standard HTTP status codes to indicate the outcome of a request.
 
 Code	Status	Meaning
@@ -112,13 +114,13 @@ Code	Status	Meaning
 400	Bad Request	Invalid URL supplied or missing JSON payload
 404	Not Found	Short code does not exist in the database
 500	Internal Server Error	Database connection issue or server exception
-🔧 Configuration & Customization
+
+## Configuration & Customization
 You can modify the application behavior by editing the following variables:
 
 Short Code Length: Adjust the length parameter in the generate_short_code() utility function (default is 6 characters).
 
 Database Engine: To switch from SQLite to PostgreSQL or MySQL, update the SQLALCHEMY_DATABASE_URI configuration string in app.py.
-```
 ---
 
 ## Dependencies
