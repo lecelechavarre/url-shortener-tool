@@ -7,7 +7,7 @@ A lightweight, high-performance URL shortening service built with Flask. This ap
 - **URL Shortening** — Generate unique, collision-resistant short codes for any valid destination URL.
 - **Full CRUD Support** — Create, retrieve, update, and delete short links via RESTful endpoints.
 - **Analytics Dashboard** — Track click-through metrics and access counts per link.
-- **Seamless Redirection** — Automatic `302` redirection with minimal latency.
+- **Seamless Redirection** — Automatic 302 redirection with minimal latency.
 - **Input Sanitization** — Comprehensive URL validation to prevent malformed entries.
 - **Web Interface** — Clean, responsive frontend for non-technical users.
 
@@ -16,7 +16,7 @@ A lightweight, high-performance URL shortening service built with Flask. This ap
 ## 🧰 Technology Stack
 
 | Category       | Technology                          |
-| :------------- | :---------------------------------- |
+|----------------|-------------------------------------|
 | **Backend**    | Python 3.x, Flask                   |
 | **Database**   | SQLite (Development), SQLAlchemy ORM|
 | **Validation** | `validators` library                |
@@ -87,6 +87,27 @@ json
   "short_url": "http://localhost:5000/xYz123",
   "original_url": "https://www.example.com/very/long/path"
 }
+Example: Get Statistics
+bash
+curl http://localhost:5000/shorten/xYz123/stats
+Response:
+
+json
+{
+  "short_code": "xYz123",
+  "original_url": "https://www.example.com/very/long/path",
+  "access_count": 42,
+  "created_at": "2026-04-10T10:30:00",
+  "updated_at": "2026-04-10T14:22:00"
+}
+Example: Update URL
+bash
+curl -X PUT http://localhost:5000/shorten/xYz123 \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://www.newexample.com"}'
+Example: Delete URL
+bash
+curl -X DELETE http://localhost:5000/shorten/xYz123
 🗄️ Data Schema
 Column	Type	Constraints	Description
 id	INTEGER	PRIMARY KEY, AUTOINCREMENT	Internal record ID
@@ -102,6 +123,7 @@ Code	Status	Meaning
 200	OK	Request succeeded
 201	Created	Short URL successfully generated
 204	No Content	Delete operation successful
+302	Found	Redirecting to original URL
 400	Bad Request	Invalid URL supplied or missing JSON payload
 404	Not Found	Short code does not exist in the database
 500	Internal Server Error	Database connection issue or server exception
@@ -113,8 +135,9 @@ Short Code Length: Adjust the length parameter in the generate_short_code() util
 Database Engine: To switch from SQLite to PostgreSQL or MySQL, update the SQLALCHEMY_DATABASE_URI configuration string in app.py.
 
 📦 Dependencies
-Flask — Micro web framework.
-
-Flask-SQLAlchemy — ORM for database abstraction.
-
-validators — Strict URL validation logic.
+Package	Version	Purpose
+Flask	>=2.0.0	Web framework
+Flask-SQLAlchemy	>=3.0.0	ORM and database abstraction
+validators	>=0.20.0	URL validation utilities
+📄 License
+This project is open-source and available under the MIT License.
