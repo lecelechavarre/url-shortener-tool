@@ -70,6 +70,8 @@ The service will be available at http://localhost:5000.
 ---
 
 ## Dependencies
+```
 Flask — Micro web framework.
 Flask-SQLAlchemy — ORM for database abstraction.
 validators — Strict URL validation logic.
+```
