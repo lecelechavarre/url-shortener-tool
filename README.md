@@ -63,7 +63,7 @@ The application uses SQLite by default. The database schema is automatically cre
 ```
 ```
 4. Run the Application
-bash
+bash```
 python app.py
 The service will be available at http://localhost:5000.
 ```
